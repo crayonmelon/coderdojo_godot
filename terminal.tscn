@@ -1,0 +1,69 @@
+[gd_scene load_steps=4 format=3 uid="uid://jnlhyg8dbkyh"]
+
+[ext_resource type="Script" uid="uid://86p5vvk82ci7" path="res://terminal_logic.gd" id="1_sxuvd"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_yrvhh"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yrvhh"]
+radius = 5.5263014
+
+[node name="Terminal" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_yrvhh")
+script = ExtResource("1_sxuvd")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_yrvhh")
+debug_color = Color(13.680414, 9.665961, 0, 0.41960785)
+
+[node name="IconPrompt" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+pixel_size = 0.023
+billboard = 1
+texture_filter = 2
+text = "E"
+
+[node name="TerminalUI" type="CanvasLayer" parent="."]
+
+[node name="Control2" type="Control" parent="TerminalUI"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="VBoxContainer" parent="TerminalUI/Control2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -244.5
+offset_top = -141.0
+offset_right = 244.5
+offset_bottom = 141.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TerminalUI/Control2/Control"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[wave]INPUT TEXT"
+fit_content = true
+
+[node name="LineEdit" type="LineEdit" parent="TerminalUI/Control2/Control"]
+layout_mode = 2
+placeholder_text = "TYPE HERE"
+
+[node name="Button" type="Button" parent="TerminalUI/Control2/Control"]
+layout_mode = 2
+text = "SUBMIT"

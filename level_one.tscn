@@ -1,0 +1,57 @@
+[gd_scene load_steps=10 format=3 uid="uid://byu7e6fr0eupo"]
+
+[ext_resource type="Texture2D" uid="uid://b3sc3h7l2nlpb" path="res://foliage4.png" id="1_ojold"]
+[ext_resource type="PackedScene" uid="uid://ykof3kj13tik" path="res://character.tscn" id="2_bo08i"]
+[ext_resource type="PackedScene" uid="uid://jnlhyg8dbkyh" path="res://terminal.tscn" id="3_foyw7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bo08i"]
+sky_top_color = Color(0.7734085, 0.10093639, 0.5319197, 1)
+sky_horizon_color = Color(0.37451175, 0.7311469, 0.79861486, 1)
+sky_curve = 0.098963015
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_foyw7"]
+sky_material = SubResource("ProceduralSkyMaterial_bo08i")
+
+[sub_resource type="Environment" id="Environment_eck3n"]
+background_mode = 2
+sky = SubResource("Sky_foyw7")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xsnk2"]
+albedo_texture = ExtResource("1_ojold")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_l6eyr"]
+size = Vector2(100, 100)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ojold"]
+data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_eck3n")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 43.513367, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_xsnk2")
+mesh = SubResource("PlaneMesh_l6eyr")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_ojold")
+debug_color = Color(0.49838537, 0.5820207, 3.85046e-07, 0.41960785)
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("2_bo08i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.643755, 0)
+
+[node name="Terminal" parent="." instance=ExtResource("3_foyw7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -22)
+
+[node name="Terminal2" parent="." instance=ExtResource("3_foyw7")]
+transform = Transform3D(0.25881907, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, 0.25881907, -15, 2, -22)
